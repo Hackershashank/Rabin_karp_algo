@@ -7,7 +7,9 @@ public class Rabin_karp {
         Scanner sc = new Scanner(System.in);
 
         // Taking inputs for text and pattern
+        System.out.println("Enter pattern String: ");
         String pattern = sc.next();
+        System.out.println("Enter text String: ");
         String text = sc.next();
 
         int n = pattern.length();
@@ -22,9 +24,9 @@ public class Rabin_karp {
         }
 
         // Compute hash values for all prefixes of t
-        long[] hashKeysOfPrefixOfT = new long[m + 1];
+        long[] hashOfPrefixOfText = new long[m + 1];
         for (int i = 0; i < m; i++) {
-            hashKeysOfPrefixOfT[i + 1] = (hashKeysOfPrefixOfT[i] % mod + ((text.charAt(i) - 'a' + 1) * power[i]) % mod) % mod;
+            hashOfPrefixOfText[i + 1] = (hashOfPrefixOfText[i] % mod + ((text.charAt(i) - 'a' + 1) * power[i]) % mod) % mod;
         }
 
         // Compute hash value for s
@@ -35,7 +37,7 @@ public class Rabin_karp {
 
         // Search for the pattern in the text
         for (int i = 0; i + n - 1 < m; i++) {
-            long cur_hash = (hashKeysOfPrefixOfT[i + n] - hashKeysOfPrefixOfT[i] + mod) % mod;
+            long cur_hash = (hashOfPrefixOfText[i + n] - hashOfPrefixOfText[i] + mod) % mod;
             if (cur_hash == (hash_pattern % mod * power[i] % mod) % mod) {
                 System.out.println("Found at index: " + i);
             }
